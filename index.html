@@ -23,6 +23,7 @@
             attribute vec2 vTexCoord;
 
             varying vec2 fTexCoord;
+            varying vec3 R;
 
             void main() {
 
@@ -37,6 +38,7 @@
 
 
                 V = normalize(-pos);
+               // R = refract(pos, N, 0.95)
 
                 fMaterialDiffuse = vMaterialDiffuse;
                 fMaterialSpecular = vMaterialSpecular;
@@ -60,9 +62,12 @@
             uniform sampler2D texture;
             uniform bool isStopSign;
             uniform bool justAmbient;
+            uniform samplerCube texMap;
+            varying vec3 R;
 
             void main() {
 
+                //vec4 texColor = textureCube(texMap, R);
                 vec3 R = (2.0 * dot(L, N) * N) - L;
 
                 vec4 diffuseProduct = diffuseLight * fMaterialDiffuse;

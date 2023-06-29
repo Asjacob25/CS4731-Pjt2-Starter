@@ -18,6 +18,9 @@ let ifShadow = false;
 let a;
 theta = 0;
 let close = false;
+let SB = false;
+let ref = false;
+let frac = false;
 
     var lightPosition = vec4(1.0, 6.0, 1.0, 0.0 );
     var lightAmbient = vec4(0.2, 0.2, 0.2, 1.0 );
@@ -124,7 +127,18 @@ let close = false;
         image.onload = function() {
             configureTexture( image );
         }
-
+        var image1 = new Image();
+        var image2 = new Image();
+        var image3 = new Image();
+        var image4 = new Image();
+        var image5 = new Image();
+        var image6 = new Image();
+        skybox(image1, "https://web.cs.wpi.edu/~jmcuneo/cs4731/project2/skybox_negx.png");
+        skybox(image2, "https://web.cs.wpi.edu/~jmcuneo/cs4731/project2/skybox_negy.png");
+        skybox(image3, "https://web.cs.wpi.edu/~jmcuneo/cs4731/project2/skybox_negz.png");
+        skybox(image4, "https://web.cs.wpi.edu/~jmcuneo/cs4731/project2/skybox_posx.png");
+        skybox(image5, "https://web.cs.wpi.edu/~jmcuneo/cs4731/project2/skybox_posy.png");
+        skybox(image6, "https://web.cs.wpi.edu/~jmcuneo/cs4731/project2/skybox_posz.png");
         console.log(stopSign);
 
         objData(stopSign, 1);
@@ -133,12 +147,7 @@ let close = false;
         objData(street, 4);
         objData(bunny, 5);
 
-        var image = new Image();
-        image.crossOrigin = "";
-        image.src = "http://web.cs.wpi.edu/~jmcuneo/a.jpg";
-        image.onload = function() {
-            configureCubeMapImage(image);
-        }
+
 
         canRender();
 
@@ -170,6 +179,33 @@ let close = false;
                         canRender();
                     } else {
                         moveCar = true;
+                        canRender();
+                    }
+                    break;
+                case 'e':
+                    if (SB) {
+                        SB = false;
+                        canRender();
+                    } else {
+                        SB = true;
+                        canRender();
+                    }
+                    break;
+                case 'r':
+                    if (ref) {
+                        ref = false;
+                        canRender();
+                    } else {
+                        ref = true;
+                        canRender();
+                    }
+                    break;
+                case 'f':
+                    if (frac) {
+                        frac = false;
+                        canRender();
+                    } else {
+                        frac = true;
                         canRender();
                     }
                     break;
@@ -225,6 +261,13 @@ let close = false;
         }
 
     }
+function skybox(theImage, link){
+    theImage.crossOrigin = "";
+    theImage.src = link;
+    theImage.onload = function() {
+        configureCubeMapImage(theImage);
+    }
+}
 
     function canRender(){
         if(objects.length == 5){
